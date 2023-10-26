@@ -13,42 +13,65 @@ let stacks = {
   c: []
 };
 
-// Start here. What is this function doing?
 const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
 
-// Next, what do you think this function should do?
-const movePiece = () => {
-  // Your code here
+const moveStone = () => {
+  if (!stacks[startStack].length) {
+    console.log('Your chosen start stack is empty.  Try again!');
+    getPrompt()}
+  else {
+    let stone = stacks[startStack].pop;
+    oopsCheck(stone,endStack)
+  }
+  }
 
+const oopsCheck = () => {
+  if (oops(stone,endStack)) {
+    console.log("That's an illegal move!  Try again.");
+    stacks[startStack].push(stone)
+  }
+  else if (isLegal(stone,endStack)) {
+    stacks[endStack].push(stone)
+  }
 }
 
-// Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
+const oops = (stone, endStack) => {
+  if (stone > stacks[endStack][length-1]) 
+  //  or  **for GUI**  (mouse click occurs outside of stack elements)
+{
+    return true
+  }
+}
+
+// For the purpose of the tests...
 const isLegal = () => {
-  // Your code here
-
+ if (!oops()) {
+  return true
+ }
 }
 
-// What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
-  // Your code here
 
 }
 
-// When is this function called? What should it do with its argument?
-const towersOfHanoi = (startStack, endStack) => {
-  // Your code here
-
+const playGame = (startStack, endStack) => {
+  moveStone(startStack, endStack)
 }
+
+
+
+
+
 
 const getPrompt = () => {
   printStacks();
   rl.question('start stack: ', (startStack) => {
     rl.question('end stack: ', (endStack) => {
-      towersOfHanoi(startStack, endStack);
+      playGame(startStack, endStack);
       getPrompt();
     });
   });
@@ -58,9 +81,9 @@ const getPrompt = () => {
 
 if (typeof describe === 'function') {
 
-  describe('#towersOfHanoi()', () => {
+  describe('#playGame()', () => {
     it('should be able to move a block', () => {
-      towersOfHanoi('a', 'b');
+      playGame('a', 'b');
       assert.deepEqual(stacks, { a: [4, 3, 2], b: [1], c: [] });
     });
   });
