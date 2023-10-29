@@ -13,59 +13,8 @@ let stacks = {
   c: []
 };
 
-const printStacks = () => {
-  console.log("a: " + stacks.a);
-  console.log("b: " + stacks.b);
-  console.log("c: " + stacks.c);
-}
-
-const moveStone = () => {
-  if (!stacks[startStack].length) {
-    console.log('Your chosen start stack is empty.  Try again!');
-    getPrompt()}
-  else {
-    let stone = stacks[startStack].pop;
-    oopsCheck(stone,endStack)
-  }
-  }
-
-const oopsCheck = () => {
-  if (oops(stone,endStack)) {
-    console.log("That's an illegal move!  Try again.");
-    stacks[startStack].push(stone)
-  }
-  else if (isLegal(stone,endStack)) {
-    stacks[endStack].push(stone)
-  }
-}
-
-const oops = (stone, endStack) => {
-  if (stone > stacks[endStack][length-1]) 
-  //  or  **for GUI**  (mouse click occurs outside of stack elements)
-{
-    return true
-  }
-}
-
-// For the purpose of the tests...
-const isLegal = () => {
- if (!oops()) {
-  return true
- }
-}
-
-const checkForWin = () => {
-
-}
-
-const playGame = (startStack, endStack) => {
-  moveStone(startStack, endStack)
-}
-
-
-
-
-
+// let startStack = ''
+// let endStack = ''
 
 const getPrompt = () => {
   printStacks();
@@ -76,6 +25,57 @@ const getPrompt = () => {
     });
   });
 }
+
+const printStacks = () => {
+  console.log("a: " + stacks.a);
+  console.log("b: " + stacks.b);
+  console.log("c: " + stacks.c);
+}
+
+// let startStack = 'a'
+// let endStack = 'b'
+// console.log(stacks)
+
+const isPossible = () => {
+  if (stacks[startStack] == 0){
+    console.log('Your chosen start stack is empty.  Try again!')
+  } else {
+    return true
+  }
+}
+
+const isLegal = () => {
+  if (stacks[endStack] == 0 ||
+    (stacks[startStack][stacks[startStack].length-1]
+  < stacks[endStack][stacks[endStack].length-1]) ){
+    return true
+  } else {console.log('illegal move. Try again!')}
+    } 
+
+
+const movePiece = () => {
+  stacks[endStack].push(stacks[startStack].pop());
+  printStacks()
+}
+
+const checkForWin = () => {
+  if (stacks.b == '4,3,2,1' || stacks.c == '4,3,2,1') {
+  console.log('CONGRATS!  You won in only ' +counter + ' moves!')
+  } else playGame(startStack,endStack)
+}
+
+let counter = 0
+const playGame = () => {
+    counter ++   
+  if (isLegal() && isPossible()) {
+    isPossible()
+    movePiece()
+    checkForWin()
+  }
+}
+
+playGame(startStack,endStack)
+
 
 // Tests
 

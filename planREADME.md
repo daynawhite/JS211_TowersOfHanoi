@@ -55,8 +55,7 @@ oops function:
 
  <!-- If a win is detected (all stones arranged 4,3,2,1 in array b or c), user is alerted (and maybe: counter + 4 is displayed as number of moves), and a "Play Again" button appears, which resets the game when clicked. -->
 checkForWin function:
-  if stacks = {a: [], b: [4,3,2,1], c:[]}
-    or stacks = {a: [], b: [], c: [4,3,2,1]}
+  if stacks b = [4,3,2,1], or c = [4,3,2,1]
     alert user "You won!  It took you ___ moves.";
     unhide play again button;
    else moveStone
