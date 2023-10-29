@@ -13,28 +13,16 @@ let stacks = {
   c: []
 };
 
-// let startStack = ''
-// let endStack = ''
-
-const getPrompt = () => {
-  printStacks();
-  rl.question('start stack: ', (startStack) => {
-    rl.question('end stack: ', (endStack) => {
-      playGame(startStack, endStack);
-      getPrompt();
-    });
-  });
-}
-
 const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
 
-// let startStack = 'a'
-// let endStack = 'b'
-// console.log(stacks)
+// let startStack = ''
+// let endStack = ''
+
+
 
 const isPossible = () => {
   if (stacks[startStack] == 0){
@@ -45,12 +33,14 @@ const isPossible = () => {
 }
 
 const isLegal = () => {
-  if (stacks[endStack] == 0 ||
+  if (stacks[!endStack].length ||
     (stacks[startStack][stacks[startStack].length-1]
   < stacks[endStack][stacks[endStack].length-1]) ){
     return true
-  } else {console.log('illegal move. Try again!')}
-    } 
+  } else {
+    console.log('illegal move. Try again!');
+    return false
+  }} 
 
 
 const movePiece = () => {
@@ -60,9 +50,12 @@ const movePiece = () => {
 
 const checkForWin = () => {
   if (stacks.b == '4,3,2,1' || stacks.c == '4,3,2,1') {
-  console.log('CONGRATS!  You won in only ' +counter + ' moves!')
-  } else playGame(startStack,endStack)
-}
+  console.log('CONGRATS!  You won in only ' +counter + ' moves!');
+  return true
+  } else {
+    getPrompt();
+    return false
+}}
 
 let counter = 0
 const playGame = () => {
@@ -74,7 +67,17 @@ const playGame = () => {
   }
 }
 
-playGame(startStack,endStack)
+// playGame(startStack,endStack)
+
+const getPrompt = () => {
+  printStacks();
+  rl.question('start stack: ', (startStack) => {
+    rl.question('end stack: ', (endStack) => {
+      playGame(startStack, endStack);
+      getPrompt();
+    });
+  });
+}
 
 
 // Tests
