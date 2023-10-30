@@ -22,10 +22,10 @@ const selectRow = (row) => {
 } 
 
 function pickUpStone(currentRow) {
-
+let element =  document.getElementById(currentRow)
   // let stone = row.lastChild
   // console.log('the stones id', stone)
-  document.getElementById(currentRow).removeChild(element.lastElementChild);
+ element.removeChild(element.lastElementChild);
 }
 
 document.getElementById('top-c').addEventListener(click, pickUpStone(topC))

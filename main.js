@@ -24,16 +24,17 @@ const printStacks = () => {
 
 
 
-const isPossible = () => {
+const isPossible = (startStack, endStack) => {
   if (stacks[startStack] == 0){
     console.log('Your chosen start stack is empty.  Try again!')
+    return false
   } else {
     return true
   }
 }
 
-const isLegal = () => {
-  if (stacks[!endStack].length ||
+const isLegal = (startStack, endStack) => {
+  if (!stacks[endStack].length ||
     (stacks[startStack][stacks[startStack].length-1]
   < stacks[endStack][stacks[endStack].length-1]) ){
     return true
@@ -43,26 +44,27 @@ const isLegal = () => {
   }} 
 
 
-const movePiece = () => {
-  stacks[endStack].push(stacks[startStack].pop());
-  printStacks()
+const movePiece = (startStack, endStack) => {
+  let piece = stacks[startStack].pop()
+  // stacks[endStack].push(stacks[startStack].pop());
+  stacks[endStack].push(piece)
 }
 
 const checkForWin = () => {
-  if (stacks.b == '4,3,2,1' || stacks.c == '4,3,2,1') {
+  if ((stacks.b.length == 4) || (stacks.c.length == 4)) {
   console.log('CONGRATS!  You won in only ' +counter + ' moves!');
   return true
   } else {
-    getPrompt();
+    // getPrompt();
     return false
 }}
 
 let counter = 0
-const playGame = () => {
+const playGame = (startStack, endStack) => {
     counter ++   
-  if (isLegal() && isPossible()) {
-    isPossible()
-    movePiece()
+  if (isLegal(startStack, endStack) && isPossible()) {
+    isPossible(startStack, endStack)
+    movePiece(startStack, endStack)
     checkForWin()
   }
 }
@@ -118,7 +120,38 @@ if (typeof describe === 'function') {
     });
   });
 
-} else {
+  // My tests:
+  describe('#isPossible()', () => {
+    it('should alert user if chosen move is not possible due to empty starting array', () => {
+      stacks = {
+        a: [],
+        b: [3, 2],
+        c: [4, 1]
+      };
+      assert.equal(isPossible('a', 'b'), false)
+      });
+    it('should allow a move that is possible', () => {
+      stacks = {
+        a: [],
+        b: [3, 2],
+        c: [4, 1]
+      };
+      assert.equal(isPossible('b', 'a'), true)
+      })
+    })
+    describe('#checkForWin()', () => {
+      it('should detect a win', () => {
+        stacks = { a: [], b: [], c: [4, 3, 2, 1] };
+        assert.equal(checkForWin(), true);
+        stacks = { a: [4, 3, 2], b: [], c: [1] };
+        assert.equal(checkForWin(), false);
+      });
+    });
+    
+
+  
+
+   } else {
 
   getPrompt();
 
