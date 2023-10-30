@@ -76,7 +76,7 @@ const reset = () => {
 }
 
 
-const checkForWin = () => {
+const checkForWin = (moveCount) => {
   let topRow = document.getElementById('top-row-c')
   if (topRow.childElementCount === 4) {
     // setTimeout(function() { alert(`Player ${currentMarker} won!`); }, 1);
@@ -100,5 +100,5 @@ const dropStone = (endRow) => {
   moveCount++
   console.log(moveCount)
   stone = null
-  checkForWin()
+  checkForWin(moveCount)
 }
