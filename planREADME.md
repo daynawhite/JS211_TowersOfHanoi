@@ -2,7 +2,7 @@
 This is already done in the existing repo for main.js but not index.js
 
 <!-- Show title, directions for game play, and a start button upon loading.   -->
-Create html elements for this.  Use onload event for this.
+Create html elements for this.  
 
 <!-- User cannot click anywhere else if the Start or Play Again button is visible. -->
 function: buttonVisible:
